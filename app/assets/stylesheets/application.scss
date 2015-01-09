@@ -1,0 +1,52 @@
+@import 'normalize-rails';
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+@import 'partials/**/*';
+
+body {
+  background-color: #e5e5e5;
+}
+
+#global {
+  display: flex;
+}
+
+#main {
+  margin: 0 auto 0 auto;
+  width: 600px;
+}
+
+#app {
+  width: inherit;
+  background: #ffffff;
+  display: block;
+}
+
+#controls {
+  display: block;
+  padding: 10px 20px 10px 20px;
+  height: 100px;
+  position: fixed;
+  width: inherit;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+#comics {
+  padding-top: 100px;
+  display: block;
+}
+
+#copyright {
+  margin: 30px 0 30px 0;
+  padding: 10px 0 10px 0;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.comic {
+  img {
+    display: block;
+    width: 100%;
+  }
+}

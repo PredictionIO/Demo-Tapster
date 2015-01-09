@@ -1,0 +1,27 @@
+.smile i, .frown i {
+  top: 7px;
+  position: relative;
+}
+
+.frown {
+  float: left;
+  i {
+    font-size: 45px;
+    color: #cc3333;
+  }
+}
+
+.smile {
+  float: right;
+  i {
+    font-size: 45px;
+    color: #33cc80;
+  }
+}
+
+.info {
+  i {
+    font-size: 24px;
+    color: #3380ff;
+  }
+}
