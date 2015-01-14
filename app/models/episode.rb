@@ -1,5 +1,4 @@
 class Episode < ActiveRecord::Base
-
   # Return array rather than string!
   def image_urls
     u = read_attribute(:image_urls)

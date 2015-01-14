@@ -55,7 +55,7 @@ namespace :import do
           '$set',
           'item',
           id,
-          { properties: { categories: episode.categories } }
+          { properties: categories: episode.categories }
         )
         puts "Sent episode ID #{id} to PredictionIO. Action #{i + 1} of #{episode_count}"
       else

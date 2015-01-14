@@ -1,0 +1,24 @@
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'db/**/*'
+    - 'script/**/*'
+    - 'bin/**/*'
+
+AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
+Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 130
+
+MethodLength:
+  CountComments: false
+  Max: 15
+
+Metrics/AbcSize:
+  Enabled: false
