@@ -1,52 +1,116 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require handlebars
+//= require_tree ./templates
 
 $(document).on('page:change', function() {
-  var Comic = {
-    wrap: $('#comics'),
-    comics: [
-      {url: 'http://d2me59s95dy7e.cloudfront.net/cartoons/5f/be/6c/1f/030df1b68a4c41f993369af32c09a4ce.jpg'},
-      {url: 'http://d2me59s95dy7e.cloudfront.net/cartoons/1e/52/08/3f/f72dc2cd03a14e85bfa6dfb9f85e88c9.jpg'},
-      {url: 'http://d2me59s95dy7e.cloudfront.net/cartoons/78/c8/3a/72/e59793d5ab3243e6ad09984b3455251c.jpg'},
-      {url: 'http://d2me59s95dy7e.cloudfront.net/cartoons/79/b3/65/10/e0fede2f49974898abe6846fd35c2e06.jpg'},
-      {url: 'http://d2me59s95dy7e.cloudfront.net/cartoons/54/d1/fe/12/dd766326fc5a4cb9a0e28a07a765a7c1.jpg'},
-      {url: 'http://d2me59s95dy7e.cloudfront.net/cartoons/e0/5c/33/a0/ae3f370959d94166834ab96dc8863405.jpg'},
-      {url: 'http://d2me59s95dy7e.cloudfront.net/cartoons/93/2c/a2/eb/b55471d194134f43a1a6a2616a122ffa.jpg'},
-      {url: 'http://d2me59s95dy7e.cloudfront.net/cartoons/c0/ff/12/0f/b2ac1846535243a6a17bad8d307e31ad.jpg'},
-      {url: 'http://d2me59s95dy7e.cloudfront.net/cartoons/03/63/41/62/f5b5607b659b40a99edff2becc51c8f8.jpg'}
-    ],
-    add: function(){
-      var random = this.comics[Math.floor(Math.random() * this.comics.length)];
-      this.wrap.append('<div class="comic"><img alt="" src="' + random.url + '" /></div>');
-    }
-  };
+  // Handlebar templates.
+  var debugTemplate = HandlebarsTemplates['debug'];
+  var comicTemplate = HandlebarsTemplates['comic'];
 
+  // Our application.
   var App = {
+    // jQuery references.
     smileButton: $('.button.smile a'),
     frownButton: $('.button.frown a'),
-    smile: function() {
-      $('.comic').eq(0).remove();
-      Comic.add();
+    comic: $('#comic'),
+    loading: $('#loading'),
+    debug: $('#debug'),
+    // Store like and dislike counts.
+    likes: [],
+    dislikes: [],
+    // Current episode ID.
+    episodeId: null,
+    // Set a comic passing in a JSON object returned from the server.
+    setComic: function(episode) {
+      // Set a new current episode ID.
+      this.episodeId = episode.episode_id
+      // Reload the comic handlebar template with the new episode.
+      this.comic.html(comicTemplate(episode));
+      this.hideLoading();
+      this.refreshDebug();
     },
+    // Clear comic.
+    clearComic: function() {
+      this.comic.empty();
+    },
+    // Query the server for a comic based on previous likes. See episodes#query.
+    queryPIO: function() {
+      var _this = this; // For closure.
+      $.ajax({
+        url: '/episodes/query',
+        type: 'POST',
+        data: {
+          likes: JSON.stringify(_this.likes),
+          dislikes: JSON.stringify(_this.dislikes),
+        }
+      }).done(function(data) {
+        _this.setComic(data);
+      });
+    },
+    // Get a random comic from server. See episodes#random.
+    randomComic: function() {
+      var _this = this; // For closure.
+      $.ajax({
+        url: '/episodes/random',
+      }).done(function(data) {
+        _this.setComic(data);
+      });
+    },
+    // Show the loading spinner.
+    showLoading: function() {
+      $('body').addClass('loading');
+      this.clearComic();
+      this.loading.show();
+    },
+    // Hide loading spinner.
+    hideLoading: function() {
+      this.loading.hide();
+      $('body').removeClass('loading');
+    },
+    // Refresh debug handlbar template.
+    refreshDebug: function() {
+      this.debug.html(debugTemplate(this));
+    },
+    // Add episode to list of likes if it's unique.
+    addLike: function() {
+      if (this.likes.indexOf(this.episodeId) == -1 && this.episodeId) {
+        this.likes.push(this.episodeId);
+      }
+    },
+    // Add episode to list of dislikes if it's unique.
+    addDislike: function() {
+      if (this.dislikes.indexOf(this.episodeId) == -1 && this.episodeId) {
+        this.dislikes.push(this.episodeId);
+      }
+    },
+    // Called when user pushes the smile button.
+    smile: function() {
+      this.showLoading();
+      this.addLike();
+      this.queryPIO();
+    },
+    // Called when user pushes the frown button.
     frown: function() {
-      $('.comic').eq(0).remove();
-      Comic.add();
+      this.showLoading();
+      this.addDislike();
+      this.queryPIO();
     }
   };
 
+  // Event binding for smile button.
   App.smileButton.on('click', function(e){
     e.preventDefault();
     App.smile();
-    console.debug('smile');
   });
 
+  // Event binding for frown button.
   App.frownButton.on('click', function(e){
     e.preventDefault();
     App.frown();
-    console.debug('frown');
   });
 
-  Comic.add();
+  // Get a random commic to show the user when the page is loaded.
+  App.randomComic();
 });

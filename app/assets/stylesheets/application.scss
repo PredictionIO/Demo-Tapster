@@ -32,9 +32,45 @@ body {
   background-color: #ffffff;
 }
 
-#comics {
+#comic {
   padding-top: 100px;
   display: block;
+  p {
+    text-align: center;
+    font-size: 20px;
+    color: #333333;
+  }
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.loading #comic img {
+  display: none;
+}
+
+#loading {
+  color: #999999;
+  display: block;
+  font-size: 30px;
+  padding: 20px 0;
+  text-align: center;
+}
+
+#debug {
+  margin-top: 30px;
+  display: block;
+  background-color: #f0f0f0;
+  padding: 20px 0;
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  li {
+    display: inline-block;
+  }
 }
 
 #copyright {
@@ -42,11 +78,4 @@ body {
   padding: 10px 0 10px 0;
   background-color: #ffffff;
   text-align: center;
-}
-
-.comic {
-  img {
-    display: block;
-    width: 100%;
-  }
 }
