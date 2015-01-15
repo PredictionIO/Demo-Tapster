@@ -1,3 +1,5 @@
 # Tapster
 
-PredictionIO demo! View at [tapster.prediction.io](http://tapster.prediction.io).
+View at: [tapster.prediction.io](http://tapster.prediction.io)
+
+Built with: [PredictionIO](http://prediction.io)
