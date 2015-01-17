@@ -42,9 +42,11 @@ class EpisodesController < ApplicationController
 
   def random_episode
     # PostgreSQL
+    # Comment this line out of you are using MySQL!
     Episode.order('RANDOM()').first
 
     # MySQL
+    # Uncomment this link if you are using MySQL
     # Episode.order('RAND()').first
   end
 end

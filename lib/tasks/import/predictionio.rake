@@ -17,8 +17,8 @@ namespace :import do
     user_ids = []
     episode_ids = []
     CSV.foreach(USER_LIST, headers: true) do |row|
-      user_id = row[0]
-      episode_id = row[1]
+      user_id = row[0] # userId
+      episode_id = row[1] # episodeId
       puts "Reading line #{$INPUT_LINE_NUMBER} of #{line_count}."
       user_ids << user_id
       episode_ids << episode_id
@@ -71,10 +71,10 @@ namespace :import do
       episode_id = row[1]
       # Send view to PredictionIO.
       client.acreate_event(
-      'view',
-      'user',
-      user_id,
-      { 'targetEntityType' => 'item', 'targetEntityId' => episode_id }
+        'view',
+        'user',
+        user_id,
+        { 'targetEntityType' => 'item', 'targetEntityId' => episode_id }
       )
       puts "Sent user ID #{user_id} viewed episode ID #{episode_id} to PredictionIO. Action #{$INPUT_LINE_NUMBER} of #{line_count}."
     end
