@@ -13,15 +13,12 @@
 
 ActiveRecord::Schema.define(version: 20150109223518) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "episodes", force: :cascade do |t|
-    t.integer  "episode_id"
-    t.string   "title"
-    t.string   "categories"
-    t.string   "episode_url"
-    t.string   "image_urls"
+    t.integer  "episode_id",  limit: 4
+    t.string   "title",       limit: 255
+    t.string   "categories",  limit: 255
+    t.string   "episode_url", limit: 255
+    t.string   "image_urls",  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
