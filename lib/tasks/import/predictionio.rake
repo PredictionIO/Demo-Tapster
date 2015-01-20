@@ -51,7 +51,7 @@ namespace :import do
 
       if episode
         # Send unique episode IDs to PredictionIO.
-        client.acreate_event(
+        client.create_event(
           '$set',
           'item',
           id,

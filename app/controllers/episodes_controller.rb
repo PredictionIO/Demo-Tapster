@@ -42,11 +42,14 @@ class EpisodesController < ApplicationController
 
   def random_episode
     # PostgreSQL
-    # Comment this line out of you are using MySQL!
-    Episode.order('RANDOM()').first
+    # Episode.order('RANDOM()').first
 
     # MySQL
-    # Uncomment this link if you are using MySQL
     # Episode.order('RAND()').first
+
+    # Generic
+    # This method is slower but works for any DB.
+    # In production you would want to use one of the above methods.
+    Episode.offset(rand(Episode.count)).first
   end
 end

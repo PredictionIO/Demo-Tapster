@@ -14,15 +14,15 @@
 ActiveRecord::Schema.define(version: 20150109223518) do
 
   create_table "episodes", force: :cascade do |t|
-    t.integer  "episode_id",  limit: 4
-    t.string   "title",       limit: 255
-    t.string   "categories",  limit: 255
-    t.string   "episode_url", limit: 255
-    t.string   "image_urls",  limit: 255
+    t.integer  "episode_id"
+    t.string   "title"
+    t.string   "categories"
+    t.string   "episode_url"
+    t.string   "image_urls"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "episodes", ["episode_id"], name: "index_episodes_on_episode_id", unique: true, using: :btree
+  add_index "episodes", ["episode_id"], name: "index_episodes_on_episode_id", unique: true
 
 end
