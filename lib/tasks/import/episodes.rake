@@ -13,9 +13,9 @@ namespace :import do
       e = Episode.new
       e.episode_id = row[0] # episodeId
       e.title = row[1] # episodeTitle
-      e.categories = row[3] # episodeCategories
-      e.episode_url = row[5] # episodeUrl
-      e.image_urls = row[6] # episodeImageUrls - semicolan seperated!
+      e.categories = row[2] # episodeCategories
+      e.episode_url = row[3] # episodeUrl
+      e.image_urls = row[4] # episodeImageUrls - semicolan seperated!
       if e.save
         puts "Episode #{e.id} saved!".color(:green)
       else
