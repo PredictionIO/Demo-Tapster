@@ -65,21 +65,21 @@ namespace :import do
 
     puts 'Done with episodes!'.color(:green)
 
-    puts 'Starting views...'.color(:blue)
+    puts 'Starting likes...'.color(:blue)
     CSV.foreach(USER_LIST, headers: true) do |row|
       user_id = row[0]
       episode_id = row[1]
-      # Send view to PredictionIO.
+      # Send like to PredictionIO.
       client.acreate_event(
-        'view',
+        'like',
         'user',
         user_id,
         { 'targetEntityType' => 'item', 'targetEntityId' => episode_id }
       )
-      puts "Sent user ID #{user_id} viewed episode ID #{episode_id} to PredictionIO. Action #{$INPUT_LINE_NUMBER} of #{line_count}."
+      puts "Sent user ID #{user_id} liked episode ID #{episode_id} to PredictionIO. Action #{$INPUT_LINE_NUMBER} of #{line_count}."
     end
 
-    puts 'Done with views!'.color(:green)
+    puts 'Done with likes!'.color(:green)
 
     puts 'All Done!'.color(:green)
   end
