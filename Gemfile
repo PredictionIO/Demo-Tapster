@@ -36,6 +36,7 @@ gem 'font-awesome-sass'
 gem 'unicorn'
 gem 'rainbow'
 gem 'handlebars_assets'
+gem 'autoprefixer-rails'
 
 # All the Databases (you can comment out the ones you don't need)
 gem 'pg'
