@@ -34,7 +34,6 @@ gem 'foreman'
 # Demo gems
 gem 'normalize-rails'
 gem 'font-awesome-sass'
-gem 'unicorn'
 gem 'rainbow'
 gem 'handlebars_assets'
 gem 'autoprefixer-rails'
