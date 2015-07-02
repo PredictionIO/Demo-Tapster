@@ -13,4 +13,4 @@ View at: [tapster.prediction.io](http://tapster.prediction.io)
 
 Built with: [PredictionIO](http://prediction.io)
 
-Documentation: [PredicyionIO/Tapster] (https://docs.prediction.io/demo/tapster/)
+Documentation: [PredictionIO/Tapster] (https://docs.prediction.io/demo/tapster/)
